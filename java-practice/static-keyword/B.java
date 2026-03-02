@@ -8,4 +8,6 @@ public class B {
         a.method1(35);           // prints this input value , this value is final in method1
 
     }
+    
 }
+
