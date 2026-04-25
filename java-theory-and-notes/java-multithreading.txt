@@ -1,0 +1,174 @@
+
+=======================================================================
+                JAVA MULTITHREADING: PARALLEL EXECUTION
+=======================================================================
+
+
+1. WHAT IS MULTITHREADING?
+
+Multithreading is a process of executing multiple threads simultaneously. 
+It allows a program to perform multiple tasks at the same time, which 
+maximizes CPU utilization.
+
+Terminology:
+
+* Process: An executing program (e.g., IntelliJ, Chrome).
+* Thread: A "lightweight" subprocess; the smallest unit of a process.
+* Package: All thread-related classes are in 'java.lang'.
+
+
+-----------------------------------------------------------------------
+2. WAYS TO CREATE A THREAD
+-----------------------------------------------------------------------
+
+1. BY EXTENDING THE 'THREAD' CLASS:
+
+   - Must override the run() method.
+
+   - Limitation: Since Java doesn't support Multiple Inheritance for classes, 
+     if you extend Thread, you cannot extend any other class.
+
+2. BY IMPLEMENTING THE 'RUNNABLE' INTERFACE:
+
+   - Better approach because you can still extend other classes.
+
+   - Used for "Multiple Inheritance" scenarios (Implementing multiple interfaces).
+
+
+-----------------------------------------------------------------------
+3. SPECIAL INTERFACES
+-----------------------------------------------------------------------
+
+* FUNCTIONAL INTERFACE: 
+  - Contains exactly one abstract method.
+  - Annotated with @FunctionalInterface.
+  - Example: Runnable interface (has only run() method).
+
+* MARKER INTERFACE: 
+  - An empty interface with no methods/fields. 
+  - It "marks" a class for a specific behavior.
+  - Example: Serializable (for saving state), Cloneable (for copying).
+
+
+-----------------------------------------------------------------------
+4. THE DIFFERENCE: wait() vs. sleep()
+-----------------------------------------------------------------------
+
+| Feature         | wait()                             | sleep()                      |
+|-----------------|------------------------------------|------------------------------|
+| Class           | Object Class                       | Thread Class                 |
+| Lock Release    | Releases the lock                  | Does NOT release the lock    |
+| Usage           | Inside Synchronized blocks only    | Can be used anywhere         |
+| Purpose         | Inter-thread communication         | Pauses current thread        |
+| Wake up         | Use notify() or notifyAll()        | Resumes after specified time |
+
+
+-----------------------------------------------------------------------
+5. THREAD CLASS METHODS (Quick Reference)
+-----------------------------------------------------------------------
+
+* start(): Creates a new thread and calls the run() method.
+* run(): Contains the logic that the thread will execute.
+* currentThread(): Returns a reference to the currently executing thread.
+* sleep(long ms): Pauses the thread for a specific duration.
+* join(): Waits for a thread to die before starting another.
+* getName() / setName(): Used to identify threads during debugging.
+
+
+-----------------------------------------------------------------------
+6. PRACTICAL IMPLEMENTATION (Runnable Interface)
+-----------------------------------------------------------------------
+
+// Defining a task by implementing Runnable
+public class MyTask implements Runnable, A, B {
+    @Override
+    public void run() {
+        System.out.println("Thread is running...");
+    }
+}
+
+// Executing the task
+public class Main {
+    public static void main(String[] args) {
+        MyTask mt = new MyTask();
+        Thread t1 = new Thread(mt); // Pass the runnable object to Thread
+        t1.start(); 
+    }
+}
+
+
+
+=======================================================================
+
+1. THE THREAD CLASS (java.lang.Thread)
+
+--------------------------------------
+* Concept: You create a child of the Thread class.
+* Action: Must override the run() method.
+* Execution: Call the start() method.
+
+[PRACTICAL EXAMPLE]
+
+public class MyThread extends Thread {
+    @Override
+    public void run() {
+        System.out.println("Thread is running: " + Thread.currentThread().getName());
+    }
+}
+
+// In Main:
+MyThread t1 = new MyThread();
+t1.start();
+
+
+2. THE RUNNABLE INTERFACE (java.lang.Runnable)
+
+----------------------------------------------
+* Concept: You implement the Runnable interface.
+* Action: Override the run() method.
+* Execution: Pass your Runnable object to a new Thread object, then call start().
+
+[PRACTICAL EXAMPLE]
+
+public class MyRunnable implements Runnable {
+    @Override
+    public void run() {
+        System.out.println("Runnable is running: " + Thread.currentThread().getName());
+    }
+}
+
+// In Main:
+MyRunnable myRun = new MyRunnable();
+Thread t1 = new Thread(myRun); // Constructor takes the Runnable object
+t1.start();
+
+
+-----------------------------------------------------------------------
+3. KEY DIFFERENCES FOR INTERVIEWS
+-----------------------------------------------------------------------
+
+| Feature              | Extending Thread Class         | Implementing Runnable        |
+|----------------------|--------------------------------|------------------------------|
+| Inheritance          | Cannot extend other classes    | Can extend other classes     |
+| Complexity           | Simpler to implement           | Slightly more code required  |
+| Best Practice        | Not recommended (tightly coupled)| Highly recommended (flexible)|
+| Object Sharing       | Each thread has a unique object| Multiple threads can share   |
+|                      |                                | the same Runnable object    |
+
+
+-----------------------------------------------------------------------
+4. IMPORTANT NOTE: WHY START() AND NOT RUN()?
+-----------------------------------------------------------------------
+
+* Calling .start(): Creates a NEW stack for the thread and then the 
+  JVM calls the run() method on that new stack. This achieves 
+  Multi-Threading.
+
+* Calling .run(): It works like a normal method call. No new thread 
+  is created, and it executes on the same (Main) thread. This 
+  is NOT Multi-Threading.
+
+=======================================================================
+
+
+

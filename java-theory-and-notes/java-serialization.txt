@@ -1,0 +1,286 @@
+
+=======================================================================
+                JAVA SERIALIZATION & FILE HANDLING
+=======================================================================
+
+
+1. WHAT IS SERIALIZATION?
+
+Serialization is the process of converting a Java Object into a 
+ByteStream so it can be saved to a file or transferred over a network.
+
+* Reverse Process: Deserialization (ByteStream back into a Java Object).
+* Requirement: The class must implement the 'Serializable' interface.
+* Interface Type: 'Serializable' is a Marker Interface (it has no methods).
+
+
+-----------------------------------------------------------------------
+2. FILE HANDLING COMPONENTS
+-----------------------------------------------------------------------
+
+To perform these operations, we use classes from the 'java.io' package:
+
+* SERIALIZATION (Writing):
+  - FileOutputStream: Connects to the physical file.
+  - ObjectOutputStream: Converts the object to a stream.
+  - Method used: writeObject(object);
+
+* DESERIALIZATION (Reading):
+  - FileInputStream: Reads from the physical file.
+  - ObjectInputStream: Converts the stream back into an object.
+  - Method used: readObject();
+
+
+-----------------------------------------------------------------------
+3. CODE REFERENCE: EMPLOYEE DATA EXAMPLE
+-----------------------------------------------------------------------
+
+
+This module demonstrates how to convert a Java Object into a file 
+(Serialization) and then read it back into the program (Deserialization).
+
+-----------------------------------------------------------------------
+-- THE DATA MODEL (The Object to be Saved)
+-----------------------------------------------------------------------
+File: Employee.java
+- This class MUST implement 'Serializable'.
+- It acts as the blueprint for the data we want to store.
+
+public class Employee implements Serializable {
+    int empId;
+    String name;
+    String city;
+
+    public Employee(int empId, String name, String city) {
+        this.empId = empId;
+        this.name = name;
+        this.city = city;
+    }
+}
+
+
+-----------------------------------------------------------------------
+-- THE SERIALIZATION PROCESS (Writing to File)
+-----------------------------------------------------------------------
+File: Serialization.java
+- Purpose: Convert the 'Employee' object into a .txt file.
+- Key Classes: FileOutputStream, ObjectOutputStream.
+
+public class Serialization {
+    public static void main(String[] args) throws Exception {
+        // 1. Create the Object
+        Employee e = new Employee(123, "Rahul", "Pune");
+
+        // 2. Connect to File and Start Stream
+        FileOutputStream file = new FileOutputStream("employeedata.txt");
+        ObjectOutputStream os = new ObjectOutputStream(file);
+
+        // 3. Write Object and Close
+        os.writeObject(e); 
+        os.close();
+        file.close();
+
+        System.out.println("Object state saved to file successfully!");
+    }
+}
+
+
+-----------------------------------------------------------------------
+-- THE DESERIALIZATION PROCESS (Reading from File)
+-----------------------------------------------------------------------
+File: DeSerialization.java
+- Purpose: Fetch the saved file and convert it back into a Java Object.
+- Key Classes: FileInputStream, ObjectInputStream.
+
+public class DeSerialization {
+    public static void main(String[] args) throws Exception {
+        // 1. Connect to the existing file
+        FileInputStream file = new FileInputStream("employeedata.txt");
+        ObjectInputStream os = new ObjectInputStream(file);
+
+        // 2. Read the Object (Type-casting is required)
+        Employee e = (Employee) os.readObject(); 
+
+        // 3. Use the data
+        System.out.println("Fetched ID: " + e.empId);
+        System.out.println("Fetched Name: " + e.name);
+        
+        os.close();
+        file.close();
+    }
+}
+
+
+-----------------------------------------------------------------------
+-- SUMMARY OF FLOW
+-----------------------------------------------------------------------
+1. Employee Object  ---> ObjectOutputStream ---> .txt File (Serialized)
+2. .txt File       ---> ObjectInputStream  ---> Employee Object (Deserialized)
+
+Note: If the 'Employee' class does not implement Serializable, 
+Java will throw a 'NotSerializableException'.
+
+
+
+
+
+
+-----------------------------------------------------------------------
+4. THE 'TRANSIENT' KEYWORD (Interview Pro-Tip)
+-----------------------------------------------------------------------
+
+If you don't want a specific variable to be serialized (like a 
+Password or Sensitive Data), use the 'transient' keyword.
+
+Example: 
+private transient String password; 
+
+// During deserialization, this value will be restored as 'null' 
+// for objects and '0' for primitives.
+
+
+-----------------------------------------------------------------------
+5. WHY IS IT USED?
+-----------------------------------------------------------------------
+
+* Persistence: To save the state of an object even after the program exits.
+* Communication: To send objects between two different systems.
+* Caching: Storing objects in memory for faster access later.
+
+=======================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================================================================
+=======================================================================
+             COMPLETE SERIALIZATION & DESERIALIZATION SUITE
+=======================================================================
+=======================================================================
+
+This module demonstrates how to convert a Java Object into a file 
+(Serialization) and then read it back into the program (Deserialization).
+
+-----------------------------------------------------------------------
+1. THE DATA MODEL (The Object to be Saved)
+-----------------------------------------------------------------------
+File: Employee.java
+- This class MUST implement 'Serializable'.
+- It acts as the blueprint for the data we want to store.
+
+public class Employee implements Serializable {
+    int empId;
+    String name;
+    String city;
+
+    public Employee(int empId, String name, String city) {
+        this.empId = empId;
+        this.name = name;
+        this.city = city;
+    }
+}
+
+
+-----------------------------------------------------------------------
+2. THE SERIALIZATION PROCESS (Writing to File)
+-----------------------------------------------------------------------
+File: Serialization.java
+- Purpose: Convert the 'Employee' object into a .txt file.
+- Key Classes: FileOutputStream, ObjectOutputStream.
+
+public class Serialization {
+    public static void main(String[] args) throws Exception {
+        // 1. Create the Object
+        Employee e = new Employee(123, "Rahul", "Pune");
+
+        // 2. Connect to File and Start Stream
+        FileOutputStream file = new FileOutputStream("employeedata.txt");
+        ObjectOutputStream os = new ObjectOutputStream(file);
+
+        // 3. Write Object and Close
+        os.writeObject(e); 
+        os.close();
+        file.close();
+
+        System.out.println("Object state saved to file successfully!");
+    }
+}
+
+
+-----------------------------------------------------------------------
+3. THE DESERIALIZATION PROCESS (Reading from File)
+-----------------------------------------------------------------------
+File: DeSerialization.java
+- Purpose: Fetch the saved file and convert it back into a Java Object.
+- Key Classes: FileInputStream, ObjectInputStream.
+
+public class DeSerialization {
+    public static void main(String[] args) throws Exception {
+        // 1. Connect to the existing file
+        FileInputStream file = new FileInputStream("employeedata.txt");
+        ObjectInputStream os = new ObjectInputStream(file);
+
+        // 2. Read the Object (Type-casting is required)
+        Employee e = (Employee) os.readObject(); 
+
+        // 3. Use the data
+        System.out.println("Fetched ID: " + e.empId);
+        System.out.println("Fetched Name: " + e.name);
+        
+        os.close();
+        file.close();
+    }
+}
+
+
+-----------------------------------------------------------------------
+4. SUMMARY OF FLOW
+-----------------------------------------------------------------------
+1. Employee Object  ---> ObjectOutputStream ---> .txt File (Serialized)
+2. .txt File       ---> ObjectInputStream  ---> Employee Object (Deserialized)
+
+Note: If the 'Employee' class does not implement Serializable, 
+Java will throw a 'NotSerializableException'.
+=======================================================================
+
+
+
+
+
+
+
+
+

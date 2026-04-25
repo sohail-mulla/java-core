@@ -1,0 +1,81 @@
+
+=======================================================================
+                JAVA SYNCHRONIZATION: THREAD SAFETY
+=======================================================================
+
+
+1. WHAT IS SYNCHRONIZATION?
+
+Synchronization in Java is the capability to control the access of 
+multiple threads to any shared resource. It is used to prevent 
+"Thread Interference" and "Data Inconsistency."
+
+Key Concept: 
+When a method is declared as 'synchronized', a thread must acquire 
+a "Lock" (or Monitor) on the object before it can execute the method.
+
+
+-----------------------------------------------------------------------
+2. WHY DO WE NEED IT? (The Problem)
+-----------------------------------------------------------------------
+
+If multiple threads try to update the same data (like a Bank Balance 
+or a Seat Reservation) at the same time, the data can become corrupted. 
+This is called a RACE CONDITION.
+
+
+-----------------------------------------------------------------------
+3. TYPES OF SYNCHRONIZATION
+-----------------------------------------------------------------------
+
+1. INSTANCE SYNCHRONIZATION (Used in your code):
+   - Synchronized Method: Locks the entire object.
+   - Synchronized Block: Locks only a specific part of the code (More efficient).
+
+2. STATIC SYNCHRONIZATION:
+   - Locks the entire .class file instead of just one object.
+
+
+-----------------------------------------------------------------------
+4. CODE REFERENCE (Locking Logic)
+-----------------------------------------------------------------------
+
+File: MyThread.java
+
+public class MyThread extends Thread {
+
+    // Only one thread can enter any of these synchronized methods 
+    // for the same object instance at a time.
+    
+    @Override
+    public synchronized void run() {
+        for (int i = 1; i <= 100; i++) {
+            System.out.println("Run method = " + i);
+        }
+    }
+
+    public synchronized void m1() {
+        for (int i = 100; i <= 200; i++) {
+            System.out.println("m1 method = " + i);
+        }
+    }
+}
+
+
+-----------------------------------------------------------------------
+5. ADVANTAGES & DISADVANTAGES
+-----------------------------------------------------------------------
+
+* ADVANTAGES: 
+
+  - Ensures Data Consistency.
+  - Prevents Race Conditions.
+
+* DISADVANTAGES:
+
+  - Performance Overhead: Threads have to wait for the lock to be released.
+  - Potential for Deadlock: If two threads are waiting for each other's 
+    locks forever.
+
+
+=======================================================================

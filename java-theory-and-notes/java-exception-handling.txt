@@ -1,0 +1,86 @@
+
+=======================================================================
+                JAVA EXCEPTION HANDLING: ERROR CONTROL
+=======================================================================
+
+
+1. WHAT IS AN EXCEPTION?
+
+An Exception is an unwanted or unexpected event that occurs during the 
+execution of a program (at runtime) and disrupts the normal flow of 
+instructions.
+
+* Exception Handling: The process of handling these errors so the 
+  program doesn't stop abruptly.
+
+* The Parent Class: 'Throwable' is the root, which branches into:
+    1. Error: Irrecoverable (e.g., StackOverflowError, OutOfMemory).
+    2. Exception: Recoverable (The focus of our handling).
+
+
+-----------------------------------------------------------------------
+2. TYPES OF EXCEPTIONS
+-----------------------------------------------------------------------
+
+1. CHECKED (Compile-time):
+   - Checked by the compiler at compile-time.
+   - Example: ClassNotFoundException, IOException.
+   - You MUST handle or declare these, or the code won't compile.
+
+2. UNCHECKED (Runtime):
+   - Occur during execution. Not checked by the compiler.
+   - Example: ArithmeticException (Divide by zero), NullPointerException.
+
+
+-----------------------------------------------------------------------
+3. THE 5 KEYWORDS OF EXCEPTION HANDLING
+-----------------------------------------------------------------------
+
+1. try:     Wraps the "risky" code that might throw an exception.
+2. catch:   Handles the specific exception and provides a message.
+3. finally: A block that ALWAYS executes, regardless of an exception.
+4. throw:   Used to manually throw a specific exception (useful for custom errors).
+5. throws:  Used in the method signature to declare that a method 
+            might throw an exception.
+
+
+-----------------------------------------------------------------------
+4. CODE REFERENCE: TRY-CATCH-FINALLY
+-----------------------------------------------------------------------
+
+public class ExceptionDemo {
+    public static void main(String[] args) {
+        System.out.println("Start of Program");
+
+        try {
+            int result = 4 / 0; // Risky code
+            System.out.println(result);
+        } catch (ArithmeticException e) {
+            System.out.println("Error: / by zero is NOT possible in Java.");
+        } finally {
+            System.out.println("Finally block: This always runs (Cleaning up resources).");
+        }
+
+        System.out.println("End of Program (Still running!)");
+    }
+}
+
+
+-----------------------------------------------------------------------
+5. THROW vs THROWS (Interview Comparison)
+-----------------------------------------------------------------------
+
+| Feature         | throw keyword                      | throws keyword               |
+|-----------------|------------------------------------|------------------------------|
+| Purpose         | To explicitly throw an exception   | To declare an exception      |
+| Location        | Inside the method body             | In the method signature      |
+| Usage           | Used to create Custom Exceptions   | Used to delegate handling    |
+| Count           | Only one exception at a time       | Can declare multiple         |
+
+Example of Custom Exception:
+
+if(age < 18) {
+
+    throw new ArithmeticException("Not eligible to vote");
+}
+=======================================================================
