@@ -1,0 +1,181 @@
+=======================================================================
+
+                JAVA 8: MODERN FUNCTIONAL PROGRAMMING
+
+=======================================================================
+
+1. LAMBDA EXPRESSIONS & FUNCTIONAL INTERFACES
+-----------------------------------------------------------------------
+
+* Goal: Provide implementation for a Functional Interface (one abstract 
+  method) while reducing boilerplate code.
+* Syntax: (parameters) -> { body }
+
+[CODE EXAMPLE]
+@FunctionalInterface
+interface Add { int sum(int a, int b); }
+
+Add obj = (a, b) -> a + b; // No need for 'new Add()' or class boilerplate
+
+
+
+2. THE STREAM API (Data Processing)
+-----------------------------------------------------------------------
+Used to process collections in a declarative way (Filter, Map, Sort).
+
+[CODE EXAMPLE]
+list.stream()
+    .filter(x -> x > 10)         // Intermediate Operation
+    .sorted()                    // Intermediate Operation
+    .forEach(System.out::println); // Terminal Operation
+
+
+
+
+3. BUILT-IN FUNCTIONAL INTERFACES (java.util.function)
+-----------------------------------------------------------------------
+| Interface | Method   | Purpose                                      |
+|-----------|----------|----------------------------------------------|
+| Predicate | test()   | Takes input, returns boolean (Conditional)   |
+| Consumer  | accept() | Takes input, returns nothing (Printing/Save) |
+| Supplier  | get()    | Takes no input, returns value (Data Gen)     |
+| Function  | apply()  | Takes input, returns output (Transformation) |
+
+
+
+
+4. OPTIONAL CLASS (Anti-Null Tool)
+-----------------------------------------------------------------------
+Used to avoid the dreaded 'NullPointerException'. It acts as a 
+container that may or may not contain a value.
+
+[CODE EXAMPLE]
+Optional<String> check = Optional.ofNullable(null);
+System.out.println(check.orElse("Value is empty"));
+
+
+
+
+5. INTERFACE IMPROVEMENTS (Default & Static Methods)
+-----------------------------------------------------------------------
+Before Java 8, interfaces could only have abstract methods. Now:
+* Default Methods: Provide a default implementation without breaking 
+  existing classes.
+* Static Methods: Utility methods that belong to the interface class.
+
+[CODE EXAMPLE]
+interface Demo {
+    default void msg() { System.out.println("Default Method"); }
+    static void shout() { System.out.println("Static Method"); }
+}
+
+
+
+
+6. METHOD REFERENCES ( :: )
+-----------------------------------------------------------------------
+A shorthand notation for Lambda expressions that call an existing method.
+
+[CODE EXAMPLE]
+list.forEach(x -> System.out.println(x)); // Lambda
+list.forEach(System.out::println);        // Method Reference
+
+
+
+
+
+7. DATE & TIME API (java.time)
+-----------------------------------------------------------------------
+Replaced the old, buggy 'java.util.Date'. It is thread-safe and immutable.
+
+[CODE EXAMPLE]
+LocalDate today = LocalDate.now();
+LocalTime time = LocalTime.now();
+
+
+
+=======================================================================
+                STREAM API: DEEP DIVE & INTERVIEW NOTES
+=======================================================================
+
+
+1. THE STREAM PIPELINE
+-----------------------------------------------------------------------
+A Stream operation consists of three parts:
+1. Source: (e.g., List, Set, Array)
+2. Intermediate Operations: (Transform the stream, always return a Stream)
+3. Terminal Operation: (Produce a result or side-effect, closes the stream)
+
+
+2. INTERMEDIATE OPERATIONS (Lazy Operations)
+-----------------------------------------------------------------------
+These are "Lazy" because they do not execute until a terminal operation 
+is called.
+
+* filter(Predicate): Filters elements based on a condition.
+  - Ex: .filter(n -> n % 2 == 0)
+* map(Function): Transforms each element into something else.
+  - Ex: .map(name -> name.toUpperCase())
+* sorted(): Sorts the elements (Natural order or Comparator).
+* distinct(): Removes duplicate elements (uses equals() method).
+* limit(long n): Truncates the stream to 'n' elements.
+* skip(long n): Discards the first 'n' elements.
+
+
+3. TERMINAL OPERATIONS (Eager Operations)
+-----------------------------------------------------------------------
+These trigger the processing of the stream and return a non-stream result.
+
+* collect(Collectors): Converts the stream back into a List, Set, or Map.
+  - Ex: .collect(Collectors.toList())
+* forEach(Consumer): Performs an action for each element.
+* count(): Returns the number of elements as a long.
+* reduce(): Combines elements into a single value (e.g., Summing numbers).
+* anyMatch() / allMatch(): Returns boolean based on a condition.
+* findFirst() / findAny(): Returns an Optional containing the element.
+
+
+-----------------------------------------------------------------------
+4. INTERVIEW "FAVORITES" (Q&A)
+-----------------------------------------------------------------------
+
+Q1: What is the difference between map() and flatMap()?
+
+A1: map() is used for transformation (1-to-1). flatMap() is used to 
+    "flatten" a stream of streams (1-to-many), such as converting 
+    List<List<String>> into a single List<String>.
+
+Q2: Are Streams reusable?
+
+A2: NO. Once a terminal operation is called, the stream is "consumed" 
+    and closed. If you try to use it again, you get an 
+    'IllegalStateException'.
+
+Q3: What is a Parallel Stream?
+
+A3: It is a way to execute stream operations in parallel using multiple 
+    CPU cores. Use .parallelStream() instead of .stream().
+    *Caution:* Only use it for massive datasets where order doesn't matter.
+
+Q4: Why are Intermediate operations called "Lazy"?
+
+A4: Because they only record the instructions. They don't actually 
+    touch the data until you call a terminal operation like collect().
+
+
+-----------------------------------------------------------------------
+5. PRACTICAL "PRO" EXAMPLE
+-----------------------------------------------------------------------
+
+List<String> names = Arrays.asList("Rahul", "Amit", "Ankit", "Suresh");
+
+List<String> result = names.stream()
+    .filter(s -> s.startsWith("A")) // Intermediate
+    .map(String::toUpperCase)       // Intermediate
+    .sorted()                       // Intermediate
+    .collect(Collectors.toList());  // Terminal
+
+System.out.println(result); // Output: [AMIT, ANKIT]
+
+=======================================================================
+
