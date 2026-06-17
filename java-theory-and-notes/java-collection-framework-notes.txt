@@ -1,0 +1,110 @@
+=======================================================================
+                  JAVA COLLECTION FRAMEWORK STUDY NOTES
+=======================================================================
+
+1. INTRODUCTION TO THE COLLECTION FRAMEWORK
+-----------------------------------------------------------------------
+* Definition: The Collection Framework is a set of architecture-defined 
+  interfaces and classes that provides ready-made data structures and methods 
+  to store, retrieve, manipulate, and process objects efficiently.
+* Built-in Utilities: It offers optimized built-in algorithms and methods 
+  to perform specific sorting, searching, and updates seamlessly.
+* Package Location: All related interfaces and classes are contained 
+  within the 'java.util' package.
+* Core Components: Collection, List, Set, Queue, Map, ArrayList, Vector, 
+  HashSet, TreeSet, LinkedList, etc.
+
+
+2. GENERICS IN COLLECTIONS
+-----------------------------------------------------------------------
+* Definition: Introduced in Java 5, Generics allow a class, interface, or 
+  method to operate on objects of a specified data type.
+* Purpose: Provides compile-time type safety and eliminates the necessity of 
+  explicit manual type casting.
+* Type Safety Example:
+  ArrayList<String> list = new ArrayList<String>();
+* Key Restriction: Once a generic wrapper is declared with a specific type 
+  (like <String>), the collection strictly restricts and accepts only that 
+  exact data type.
+
+
+3. LEGACY CLASSES
+-----------------------------------------------------------------------
+* Definition: Legacy classes are the original container structures introduced 
+  in earlier versions of Java (prior to Java 1.2). They are not natively part 
+  of the modern core Collection Framework architecture but are fully preserved 
+  solely for backward compatibility.
+* Common Legacy Classes:
+  - Vector
+  - Stack
+  - Hashtable
+  - Enumeration
+
+
+4. ARRAY VS. ARRAYLIST (COLLECTION FRAMEWORK)
+-----------------------------------------------------------------------
+| Feature          | Array                    | Collection (ArrayList)       |
+|------------------|--------------------------|------------------------------|
+| Size             | Fixed size capacity      | Dynamic resizing capabilities|
+| Data Type        | Same data type only      | Objects only                 |
+| Flexibility      | Less flexible            | More flexible and adaptable  |
+| Built-in Methods | Very few native supports | Many rich built-in utilities |
+| Core Belonging   | Native Java Language     | Standard java.util package   |
+| Primary Usage    | Simple static data storage| Real-time enterprise apps    |
+
+* Summary Note: An Array is a rigid, fixed-size data structure optimized for 
+  storing homogeneous data. Conversely, the Collection Framework delivers 
+  dynamic structures packed with predefined logic to manage object groups.
+
+
+5. COLLECTION VS. COLLECTIONS
+-----------------------------------------------------------------------
+* Collection: A fundamental base Interface used to contain, manage, and 
+  store individual object entities.
+* Collections: A Utility Class consisting entirely of static methods used to 
+  manipulate, sort, reverse, or search collections.
+
+
+6. LIST INTERFACE VS. SET INTERFACE
+-----------------------------------------------------------------------
+
+A. List Interface (I)
+* Primary Implementations: ArrayList, Vector (Thread-Safe), LinkedList
+* Structural Characteristics:
+  1. Maintained Insertion Order: Keeps track of entry order.
+  2. Duplicate Values Allowed: Identical items are accepted.
+  3. Multiple Null References: Accepts 'n' number of null inputs.
+  4. Explicit Indexing: Elements are indexed internally.
+  5. Precise Querying: Supports retrieval from index-specific locations.
+
+B. Set Interface (I)
+* Primary Implementations: HashSet, TreeSet (Sorted, Null forbidden), 
+  LinkedHashSet (Maintains insertion order)
+* Structural Characteristics:
+  1. No Insertion Order: Elements are stored based on internal hash rules.
+  2. Duplicates Prohibited: Unique element constraints apply strictly.
+  3. Single Null Limit: Only one null element allowed (HashSet / LinkedHashSet).
+  4. No Index Integrity: Does not preserve index assignments.
+  5. No Index-Specific Access: Items cannot be retrieved by index positions.
+
+
+=======================================================================
+                    BATCH: 1306 - PRACTICE PROBLEMS
+=======================================================================
+
+* Q1: Write a Java program to store 5 integer elements in an ArrayList 
+  and print all elements.
+* Q2: Write a Java program to add, update, and remove elements from a List.
+* Q3: Write a Java program to find the size of a List and print its 
+  first and last elements.
+* Q4: Write a Java program to check whether a given element exists in a 
+  List or not.
+* Q5: Write a Java program to iterate through a List using a for-each loop.
+* Q6: Write a Java program to sort a List of integers in ascending order.
+* Q7: Write a Java program to remove duplicate elements from a List.
+* Q8: Write a Java program to reverse the elements of a List.
+* Q9: Write a Java program to copy all elements from one List to another List.
+* Q10: Write a Java program to convert a List into an array and print 
+  the array elements.
+
+=======================================================================
