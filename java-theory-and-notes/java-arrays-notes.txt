@@ -1,0 +1,193 @@
+=======================================================================
+                        JAVA ARRAYS CORE STUDY NOTES
+=======================================================================
+
+1. INTRODUCTION TO ARRAYS
+-----------------------------------------------------------------------
+* Definition: An array is a collection of similar type elements stored 
+  in contiguous (continuous) memory locations.
+* Purpose: Used when we want to store multiple values of the same type 
+  in a single variable rather than declaring separate variables for each.
+
+* Why Use Arrays?
+  - Easy to manage data collections.
+  - Reduces code redundancy (Less code).
+  - Built-in support for loops makes traversing easy.
+
+* Important Properties of Java Arrays:
+  - Fixed Size: Once an array is created, its size cannot be changed.
+  - Homogeneous Data: It stores elements of the same data type only.
+  - Index-Based: Array indexing always starts at 0 and ends at (length - 1).
+  - Heap Storage: Arrays are treated as objects in Java and are stored 
+    in Heap memory.
+  - Random Access: Allows immediate access to any element via its index.
+  - Length Property: Total element capacity is accessed using the built-in 
+    '.length' variable.
+
+
+
+* Types of Arrays in Java:
+  1. 1D Array (One-Dimensional Array)
+  2. 2D Array (Two-Dimensional Array)
+  3. Multi-Dimensional Array
+
+
+2. ONE-DIMENSIONAL (1D) ARRAYS & INITIALIZATION
+-----------------------------------------------------------------------
+* Syntax:
+  dataType[] arrayName;
+
+There are two primary approaches to initialize an array:
+
+1> Static Way (Compile-time Initialization):
+   Used when you already know the elements beforehand.
+   Example: int[] a = {10, 20, 30, 40};
+
+2> Dynamic Way (Runtime Initialization):
+   Used when you define the capacity first and allocate elements later.
+   Example:
+   int[] a = new int[4];
+   a[0] = 10;
+   a[1] = 20;
+   a[2] = 30;
+   a[3] = 40;
+
+
+=======================================================================
+                         CODE REFERENCE 1: DAY1
+=======================================================================
+
+package com.tka;
+
+import java.util.Scanner;
+
+public class Day1 {
+
+    public static void main(String[] args) {
+
+        // ============================================================
+        // Static Initialization Examples
+        // ============================================================
+        
+        // Indices:     0   1   2   3   4   5   6
+        // int[] marks = { 45, 43, 36, 37, 38, 42, 33 };
+        //
+        // Note: Using '<=' throws ArrayIndexOutOfBoundsException because 
+        // the last valid index is marks.length - 1. It should be '<'.
+        // for (int i = 0; i <= marks.length; i++) {
+        //     System.out.println(marks[i]);
+        // }
+
+        // String[] names = { "rahul", "sumedh", "swaraj", "priya", "swati", "durvesh" };
+        //
+        // for (int i = 0; i < names.length; i++) {
+        //     System.out.println(names[i]);
+        // }
+
+
+        // ============================================================
+        // Dynamic Initialization Examples
+        // ============================================================
+
+        // char[] symbols = new char[5];
+        //
+        // symbols[0] = 'A';
+        // symbols[1] = 'B';
+        // symbols[2] = 'C';
+        // symbols[3] = 'D';
+        // symbols[4] = 'E';
+        //
+        // for (int i = 0; i < symbols.length; i++) {
+        //     System.out.println(symbols[i]);
+        // }
+
+        // Dynamic array population using user input (Scanner)
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter Names ");
+        String[] name = new String[3];
+
+        for (int i = 0; i < name.length; i++) {
+            name[i] = sc.nextLine();
+        }
+        
+        System.out.println("------------------------");
+        
+        for (int i = 0; i < name.length; i++) {
+            System.out.println(name[i]);
+        }
+
+    }
+}
+
+
+=======================================================================
+                         CODE REFERENCE 2: DEMO
+=======================================================================
+
+package com.tka;
+
+import java.util.Scanner;
+
+public class Demo {
+
+    public static void main(String[] args) {
+
+        // ============================================================
+        // Index vs Length Verification
+        // ============================================================
+        // index         0   1   2   3   4   5
+        int[] arr = { 23, 56, 78, 90, 57, 67 };
+        // length = 6, maximum index = 5
+
+        // System.out.println(arr[0]);
+        // System.out.println(arr[1]);
+        // System.out.println(arr[2]);
+        // System.out.println(arr[3]);
+        // System.out.println(arr[4]);
+        // System.out.println(arr[5]);
+        // System.out.println(arr.length);
+
+        // for (int i = 0; i < arr.length; i++) {
+        //     System.out.println(arr[i]);
+        // }
+
+        // String[] stdName = { "om", "ram", "shyam", "sayee", "rani" };
+        //
+        // for (int i = 0; i < stdName.length; i++) {
+        //     System.out.println(stdName[i]);
+        // }
+
+        // String[] symbol = new String[6];
+        //
+        // symbol[0] = "Ram";
+        // symbol[1] = "Shyam";
+        // symbol[2] = "Om";
+        // symbol[3] = "Atul";
+        // symbol[4] = "Rahul";
+        // symbol[5] = "Ravi";
+        //
+        // for (int i = 0; i < symbol.length; i++) {
+        //     System.out.print(symbol[i] + " ");
+        // }
+
+
+        // ============================================================
+        // 2> Dynamic Way: Numeric Terminal Entry
+        // ============================================================
+        int[] marks = new int[5];
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter Marks here : ");
+        for (int i = 0; i < marks.length; i++) {
+            marks[i] = sc.nextInt();
+        }
+
+        System.out.println("---------------------------");
+
+        for (int i = 0; i < marks.length; i++) {
+            System.out.println(marks[i]);
+        }
+    }
+}
+
+=======================================================================
