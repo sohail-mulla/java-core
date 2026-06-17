@@ -1,0 +1,131 @@
+=======================================================================
+                   JAVA EXCEPTION HANDLING CONCEPTS
+=======================================================================
+
+1. INTRODUCTION TO EXCEPTION & HANDLING
+-----------------------------------------------------------------------
+* Exception: An Exception is an unwanted situation or error that occurs 
+  during the execution of a program (at runtime).
+* Consequences: When an exception occurs, the normal flow of the program 
+  is disrupted, the execution stops, and the system provides detailed 
+  information about the type of exception, why it occurred, and where it 
+  originated.
+* Exception Handling: This is the process of intercepting and handling 
+  unwanted errors to maintain the smooth execution flow of the program.
+* Ecosystem: Java provides a robust hierarchy of built-in exception classes 
+  (over 56,000+ classes) located within the 'java.lang' package.
+
+
+2. EXCEPTION TYPES & HIERARCHY
+-----------------------------------------------------------------------
+There are two main types of exceptions in Java:
+
+1> Checked Exception (Compile-time Exception):
+   Exceptions that are checked by the compiler during compilation. The 
+   program will not compile unless these exceptions are either handled with 
+   a try-catch block or declared using the 'throws' keyword.
+   - Example: ClassNotFoundException
+
+2> Unchecked Exception (Runtime Exception):
+   Exceptions that occur during runtime and are not checked during 
+   compilation. These usually happen due to programming logic flaws.
+   - Examples: ArithmeticException, NullPointerException, 
+     ArrayIndexOutOfBoundsException
+
+* Error vs. Exception:
+  Errors represent serious problems that a reasonable application should 
+  not try to catch (e.g., StackOverflowError).
+
+
+
+
+3. HANDLING KEYWORDS & MECHANISMS
+-----------------------------------------------------------------------
+Java provides 5 core keywords to manage exceptions: try, catch, finally, 
+throw, and throws.
+
+A. The try-catch-finally Blocks:
+* try    -> Encloses the risky code that might throw an exception.
+* catch  -> Handles the specific exception and displays a meaningful 
+            message to the user.
+* finally-> A block that always executes, regardless of whether an 
+            exception was thrown or handled. (Used for cleanup tasks).
+
+* Syntax:
+  try {
+      // Risky code
+  } catch(ExceptionType e) {
+      // Handling code
+  }
+
+B. throw vs. throws:
+* throws:
+  - Used to declare that a method might throw certain exceptions.
+  - It does not handle the exception; it delegates the responsibility to 
+    the caller method.
+  - Specified in the method signature/declaration.
+  - Can declare multiple exceptions separated by commas.
+
+* throw:
+  - Used to explicitly throw a specific exception instance.
+  - Commonly used to trigger custom (user-defined) exceptions.
+  - Written inside the method body.
+  - Can throw only a single exception at a time.
+
+
+=======================================================================
+                         CODE REFERENCE & ANALYSIS
+=======================================================================
+
+package com.tka;
+
+public class ExceptionDemo {
+
+    public static void main(String[] args) {
+
+        // ============================================================
+        // SCENARIO 1: Unchecked Exception Handling Flow
+        // ============================================================
+        System.out.println(4 / 2); // Prints 2
+        System.out.println(6 / 2); // Prints 3
+        
+        try {
+            System.out.println(4 / 0); // Throws ArithmeticException (Execution steps inside try stop here)
+        } catch (ArithmeticException e) {
+            System.out.println("Divide by zero Not Allowed ... !");
+        } finally {
+            System.out.println("I am in finally block: Always Executable ... !");
+        }
+        
+        System.out.println(8 / 2);  // Prints 4 (Program continues normally)
+        System.out.println(16 / 2); // Prints 8
+
+
+        // ============================================================
+        // SCENARIO 2: try-finally without a catch block
+        // ============================================================
+        // try {
+        //     System.out.println(4 / 0); // Stops execution due to unhandled exception
+        // } finally {
+        //     System.out.println("I am here finally block..."); // Executes before program crashes
+        // }
+
+
+        // ============================================================
+        // SCENARIO 3: Checked Exception Handling
+        // ============================================================
+        try {
+            // Class.forName is a checked operation
+            Class.forName("java.lang.String");
+            System.out.println(4 / 0); // Throws ArithmeticException
+        } catch (Exception e) {
+            System.out.println(e.getMessage()); // Catches any type of Exception
+        } finally {
+            System.out.println("This is always executable block");
+        }
+
+        // Note: StackOverflowError is an example of an Error in Java, not an Exception.
+    }
+}
+
+=======================================================================
