@@ -1,0 +1,128 @@
+=======================================================================
+               JAVA STRINGS, STRINGBUILDER & STRINGBUFFER
+=======================================================================
+
+1. STRING IMMUTABILITY & METHODS
+-----------------------------------------------------------------------
+* Definition: String objects are Immutable (cannot be changed or modified 
+  once created in memory).
+* Example Behavior:
+  String name = "Ram";
+  String name2 = name.concat(" Yadav");
+  System.out.println(name); // Output: "Ram" (Original string is unchanged)
+
+* Built-in Methods:
+  - startsWith() : Checks if string starts with a specific prefix.
+  - endsWith()   : Checks if string ends with a specific suffix.
+  - replace()    : Replaces characters or character sequences.
+  - replaceAll() : Replaces substrings matching a regular expression.
+  - equals()     : Compares the content of two strings.
+  - charAt()     : Returns the character at a specific index.
+  - toLowerCase(): Converts all characters to lowercase.
+  - toUpperCase(): Converts all characters to uppercase.
+  - toCharArray(): Converts the string into a new character array.
+  - concat()     : Appends a string to the end of another, creating a new object.
+  - trim()       : Removes leading and trailing whitespaces.
+  - hashCode()   : Returns the hash code value for the string.
+  - split()      : Splits the string around matches of a regular expression.
+  - length()     : Returns the number of characters in the string.
+  - intern()     : Returns a canonical representation from the string pool.
+
+
+2. STRINGBUILDER & STRINGBUFFER (MUTABLE)
+-----------------------------------------------------------------------
+* Definition: Both are built-in classes provided by Java in the 
+  'java.lang' package that represent Mutable sequences of characters.
+* Core Concept: They allow you to modify an existing string without 
+  creating a brand-new object in memory every time.
+* Methods: They share identical utility methods such as reverse(), 
+  append(), insert(), delete(), etc.
+* Object Creation: To use these classes, you must instantiate them 
+  explicitly using the 'new' keyword.
+  Example:
+  StringBuilder sb = new StringBuilder();
+  StringBuffer sf = new StringBuffer();
+
+
+3. KEY COMPARISONS & DIFFERENCES
+-----------------------------------------------------------------------
+
+A. String vs. StringBuilder & StringBuffer
+| Feature              | String                    | StringBuilder & StringBuffer |
+|----------------------|---------------------------|------------------------------|
+| Modifiability        | Immutable (Cannot change) | Mutable (Can be modified)    |
+| Creation Mode        | Via Literals or 'new'     | Always via 'new' keyword     |
+| Modification Method  | concat()                  | append()                     |
+| Original Object      | Cannot modify existing    | Modifies existing string     |
+
+B. concat() vs. append()
+| Feature              | concat()                  | append()                     |
+|----------------------|---------------------------|------------------------------|
+| Source Class         | String class method       | Builder & Buffer method      |
+| Return Type          | String                    | StringBuilder / StringBuffer |
+| Internal Action      | Generates a new String    | Modifies the existing string |
+
+C. StringBuilder vs. StringBuffer
+| Feature              | StringBuilder             | StringBuffer                 |
+|----------------------|---------------------------|------------------------------|
+| Synchronization       | Not synchronized          | All methods are synchronized |
+| Performance          | Faster                    | Slower                       |
+| Thread Execution     | Concurrent (Together)     | Sequential (One by one)      |
+
+* Important Note on Threading:
+  - Synchronized     : Execution happens one by one (Thread-Safe).
+  - Non-Synchronized : Execution happens together (Not Thread-Safe).
+
+
+=======================================================================
+                         CODE REFERENCE & ANALYSIS
+=======================================================================
+
+package com.tka;
+
+public class B {
+
+    public static void main(String[] args) {
+
+        // ============================================================
+        // Case 1: String Immutability and HashCode Impact
+        // ============================================================
+        // String s = "Ram";
+        // String s1 = s.concat(" Yadav");
+        //
+        // System.out.println(s.hashCode());   // Original string hash
+        // System.out.println(s1.hashCode());  // New string hash (Different object)
+
+
+        // ============================================================
+        // Case 2: StringBuilder Modification (Mutable)
+        // ============================================================
+        // StringBuilder sb = new StringBuilder("Ram");
+        // sb.append(" Yadav");
+        //
+        // System.out.println(sb); // Output: "Ram Yadav" (Modifies the same object)
+
+
+        // ============================================================
+        // Case 3: StringBuffer Modification and Methods
+        // ============================================================
+        StringBuffer sb1 = new StringBuffer("Ram");
+        sb1.append(" Yadav");
+        //
+        // System.out.println(sb1);          // Output: "Ram Yadav"
+        // System.out.println(sb1.reverse()); // Output: "vadaY maR"
+
+
+        // ============================================================
+        // Case 4: Initializing a Builder with an Existing String Variable
+        // ============================================================
+        String name = "Shubham";
+        StringBuilder sb = new StringBuilder(name);
+        sb.append(" Patil");
+        //
+        // System.out.println(sb); // Output: "Shubham Patil"
+
+    }
+}
+
+=======================================================================
