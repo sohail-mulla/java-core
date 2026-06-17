@@ -172,3 +172,79 @@ t1.start();
 
 
 
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+=======================================================================
+                   JAVA MULTITHREADING FUNDAMENTALS
+=======================================================================
+
+1. CREATING THREADS IN JAVA
+-----------------------------------------------------------------------
+Java provides two standard mechanisms to create and run a custom thread:
+
+1> By Extending the Thread Class:
+   - Thread is a built-in class present in the 'java.lang' package.
+   - To create a thread, your class must explicitly extend the Thread class.
+   - You must override the run() method to define the thread's execution logic.
+   - The thread execution begins when you invoke the start() method on your 
+     object.
+
+2> By Implementing the Runnable Interface:
+   - Runnable is a functional interface also located in the 'java.lang' package.
+   - Your class implements the Runnable interface instead of extending a class.
+   - You must override the run() method.
+   - To execute it, you must instantiate your class and pass its object reference 
+     directly into a new Thread class constructor, then invoke start().
+
+
+2. INTER-THREAD COMMUNICATION VS. PAUSING (wait vs. sleep)
+-----------------------------------------------------------------------
+| Feature         | wait()                                   | sleep()                                  |
+|-----------------|------------------------------------------|------------------------------------------|
+| Package/Class   | Defined as a method of the Object class. | Defined as a static method of Thread.    |
+| Purpose         | Used for inter-thread communication.     | Used to pause a thread for specific time.|
+| Lock Release    | Releases the monitor lock completely.    | Does not release the lock during pause.  |
+| Synchronization | Must be called inside a synchronized block.| Can be invoked from anywhere in code.    |
+| Wake Up         | Wakes up via notify() or notifyAll().    | Wakes up automatically after time expires|
+
+
+=======================================================================
+                         CODE REFERENCE & ANALYSIS
+=======================================================================
+
+package com.tka;
+
+// Mechanism 1: Extending Thread Class
+class MyThread extends Thread {
+    @Override
+    public void run() {
+        System.out.println("Thread is running via Thread Class extension...");
+    }
+}
+
+// Mechanism 2: Implementing Runnable Interface
+class MyRunnable implements Runnable {
+    @Override
+    public void run() {
+        System.out.println("Thread is running via Runnable Interface implementation...");
+    }
+}
+
+public class MultithreadingDemo {
+
+    public static void main(String[] args) {
+
+        // Execution for Mechanism 1
+        MyThread t1 = new MyThread();
+        t1.start(); // Allocates thread resources and invokes run() internally
+
+        // Execution for Mechanism 2
+        MyRunnable runnableInstance = new MyRunnable();
+        Thread t2 = new Thread(runnableInstance); // Pass runnable object into thread worker
+        t2.start();
+        
+    }
+}
+
+=======================================================================
