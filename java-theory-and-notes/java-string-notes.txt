@@ -1,0 +1,92 @@
+=======================================================================
+                   JAVA STRINGS: COMPLETE CORE STUDY NOTES
+=======================================================================
+
+1. INTRODUCTION TO STRING
+-----------------------------------------------------------------------
+* Definition: A String is a collection or sequence of characters. 
+* Built-in Class: It is a built-in class present in the 'java.lang' 
+  package. There is no need to explicitly import this package because it 
+  is imported by default.
+* Non-Primitive DataType: It is classified as a non-primitive data 
+  type because it is a class provided by Java.
+* Use Case: If you want to store a mix of alphanumeric data (such as 
+  PAN card numbers, addresses, etc.), String is used.
+* Built-in Methods: It contains a rich set of built-in methods like 
+  intern(), toString(), equals(), concat(), and many more.
+
+
+2. KEY PROPERTIES OF STRINGS
+-----------------------------------------------------------------------
+* Case-Sensitive: Strings in Java are case-sensitive. For example, 
+  "hello" and "Hello" are treated as two completely different strings.
+* Immutability: Strings are Immutable by default. Once a String object 
+  is created in memory, its value cannot be changed.
+
+  - Immutable -> Cannot be changed.
+  - Mutable   -> Can be changed.
+
+
+3. WAYS TO CREATE A STRING
+-----------------------------------------------------------------------
+Java provides two ways to initialize a String object:
+
+1> By Using String Literals:
+   Example: String name = "Ram";
+   - Memory Allocation: It is stored directly in the String Constant 
+     Pool (SCP), which is a special memory area inside the Heap.
+
+2> By Using Object Creation (new Keyword):
+   Example: String name = new String("Vishal");
+   - Memory Allocation: It bypasses the pool configuration rules and 
+     creates a brand new object inside the standard Heap memory space.
+
+
+=======================================================================
+                         CODE REFERENCE & ANALYSIS
+=======================================================================
+
+package com.tt;
+
+public class Demo {
+
+    public static void main(String[] args) {
+
+        // ============================================================
+        // SCENARIO 1: Object Creation using 'new' Keyword
+        // ============================================================
+        // String str1 = new String("Hello");
+        // String str2 = new String("Hello");
+        //
+        // System.out.println(str1.hashCode());
+        // System.out.println(str2.hashCode());
+        //
+        // System.out.println(str1 == str2);      // Returns false (Different memory locations in Heap)
+        // System.out.println(str1.equals(str2)); // Returns true (Compares the actual text content)
+
+
+        // ============================================================
+        // SCENARIO 2: Immutability and Concatenation
+        // ============================================================
+        // String str1 = "Ram";
+        // String s = str1.concat("yadav"); // Creates a new string object because strings are immutable
+        //
+        // System.out.println(s);     // Prints "Ramyadav"
+        // System.out.println(str1);  // Prints "Ram" (Original string remains unmodified)
+
+
+        // ============================================================
+        // SCENARIO 3: Identity HashCode Comparison
+        // ============================================================
+        // String str1 = new String("Hello");
+        // String str2 = new String("Hello");
+        //
+        // System.out.println(System.identityHashCode(str1)); // Unique memory address hash
+        // System.out.println(System.identityHashCode(str2)); // Different unique memory address hash
+        //
+        // System.out.println(str1 == str2); // Returns false (Memory addresses do not match)
+
+    }
+}
+
+=======================================================================
